@@ -1,0 +1,2 @@
+# capure.github.io
+yes
