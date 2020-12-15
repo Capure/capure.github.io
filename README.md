@@ -1,2 +1,3 @@
-# capure.github.io
-yes
+# JS Atkin Benchmark
+
+Built using Svelte

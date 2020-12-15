@@ -1,133 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS - Atkin - Benchmark</title>
-    <script>
-        function searchPrime(MAX) {
-    var buffer = new ArrayBuffer(MAX);
-    var array = new Int8Array(buffer);
-    SQRT_MAX = Math.floor(Math.sqrt(MAX))+1;
-    let sequence = [2, 4];
-    let index = 0;
-    let k1 = 0;
-    let k = 0;
-    let xUpper = Math.sqrt(MAX / 4) + 1;
-    let x = 1;
-    let y = 0;
-    while (x < xUpper) {
-        index = 0;
-        k1 = 4 * x * x;
-        y = 1;
-        if (x % 3 == 0) {
-            while (true) {
-                k = k1 + y * y;
-                if (k >= MAX) {
-                    break;
-                }
-                array[k] = !array[k];
-                y += sequence[(++index & 1)];
-            }
-        } else {
-            while (true) {
-                k = k1 + y * y;
-                if (k >= MAX) {
-                    break;
-                }
-                array[k] = !array[k];
-                y += 2;
-            }
-        }
-        x++;
-    }
-    xUpper = Math.sqrt(MAX / 3) + 1;
-		x = 1;
-		y = 0;
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width,initial-scale=1'>
 
-		while (x < xUpper) {
-			index = 1;
-			k1 = 3 * x * x;
-			y = 2;
-			while (true) {
-				k = k1 + y * y;
-				if (k >= MAX) {
-					break;
-				}
-				array[k] = !array[k];
-				y += sequence[(++index & 1)];
-			}
-			x += 2;
-        }
-        xUpper = Math.floor(Math.sqrt(MAX));
-		x = 1;
-		y = 0;
+	<title>JS Atkin Benchmark</title>
+	<meta name="Description" content="JavaScript implementation of an atkin benchmark built with Svelte">
 
-		while (x < xUpper) {
-			k1 = 3 * x * x;
-			if ((x & 1) == 0) {
-				y = 1;
-				index = 0;
-			} else {
-				y = 2;
-				index = 1;
-			}
-			while (y < x) {
-				k = k1 - y * y;
-				if (k < MAX) {
-					array[k] = !array[k];
-				}
-				y += sequence[(++index & 1)];
-			}
-			x++;
-        }
-        array[2] = true;
-		array[3] = true;
-		for (n = 5; n <= SQRT_MAX; n++) {
-			if (array[n]) {
-				n2 = n * n;
-				for (k = n2; k < MAX; k += n2) {
-					array[k] = false;
-				}
-			}
-        }
-    var counter = 0;
-    for (let i = 0; i < MAX; i++) {
-        if (array[i] == 1) {counter++}
-    }
-    return counter;
-        
-}
-function Benchmark(){
-console.log("start");
-document.getElementById("result").innerHTML = "Loading...";
-document.getElementById("time").innerHTML = "Loading...";
-var start = new Date().getTime();
-document.getElementById("result").innerHTML = searchPrime(1000000000);
-var stop = new Date().getTime();
-document.getElementById("time").innerHTML = (stop - start).toString();
-}
+	<link rel='icon' type='image/png' href='/favicon.png'>
+	<link rel='stylesheet' href='/global.css'>
+	<link rel='stylesheet' href='/build/bundle.css'>
 
-
-    </script>
-    <style>
-        div.wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: column;
-            height: 300px;
-            width: 300px;
-            position: fixed;
-            top: calc(50% - 150px);
-            left: calc(50% - 150px);
-        }
-    </style>
+	<script defer src='/build/bundle.js'></script>
 </head>
+
 <body>
-    <div class="wrapper">
-    Result: <span id="result">N/A</span>
-    Time: <span id="time">N/A</span>
-    <button onclick="Benchmark()" >Start</button>
-    </div>
 </body>
 </html>
